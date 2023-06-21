@@ -1,0 +1,39 @@
+# =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+#                    .___       __          
+#    ____   ____   __| _/____ _/  |_  ____  
+#   / ___\ /  _ \ / __ |\__  \\   __\/ __ \ 
+#  / /_/  >  <_> ) /_/ | / __ \|  | \  ___/ 
+#  \___  / \____/\____ |(____  /__|  \___  >
+# /_____/             \/     \/          \/ 
+# =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+#
+# > What is this file used for?
+#    This file is designed to run with grml to simplify various tasks.
+#    Head over to https://github.com/desertbit/grml, get / compile and setup grml.
+#    Afterwards you can use these tasks.
+version: 1
+project: godate
+
+env:
+    VERSION:  0.0.1
+
+interpreter: sh
+
+commands:
+    bench:
+        help: run benchmarks
+        deps:
+            - bench.format
+        commands:
+            format:
+                help: benchmark the file interpretation
+                exec: |
+                    go test \
+                        -test.benchmem \
+                        -test.bench="^\QBenchmarkFormat\E$" \
+                        -run=^$github.com/xiroxasx/godate
+
+    test:
+        help: run all tests
+        exec: |
+            go test -cover ./
